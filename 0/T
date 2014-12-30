@@ -1,0 +1,89 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 300;
+
+boundaryField
+{
+
+    inlet_crack1
+    {
+        type            groovyBC;
+        variables       ("avgInlet{outlet_crack1}=sum(T*area())/sum(area());"
+                        "dT{outlet_crack1}=400*14*7/(1.205*1005*1*sum(area()));");
+        valueExpression "1*(avgInlet-dT)";
+        value           uniform 290;
+    }
+    outlet_crack1
+    {
+        type            zeroGradient;
+    }
+
+    inlet_crack2
+    {
+        type            groovyBC;
+        variables       ("avgInlet{outlet_crack2}=sum(T*area())/sum(area());"
+                        "dT{outlet_crack2}=400*14*7/(1.205*1005*1*sum(area()));");
+        valueExpression "1*(avgInlet-dT)";
+        value           uniform 290;
+    }
+    outlet_crack2
+    {
+        type            zeroGradient;
+    }
+
+    inlet_rack_left
+    {
+        // type            fixedValue;
+        type            groovyBC;
+        variables       ("avgInlet{outlet_rack_left}=sum(T*area())/sum(area());"
+                        "dT{outlet_rack_left}=400*14*7/(1.205*1005*0.666*0.5*sum(area()));");
+        valueExpression "1*(avgInlet+dT)";
+        value           uniform 300;
+    }
+
+    outlet_rack_left
+    {
+        type            zeroGradient;
+    }
+
+    inlet_rack_right
+    {
+        // type            fixedValue;
+        type            groovyBC;
+        variables       ("avgInlet{outlet_rack_right}=sum(T*area())/sum(area());"
+                        "dT{outlet_rack_right}=400*14*7/(1.205*1005*0.666*0.5*sum(area()));");
+        valueExpression "1*(avgInlet+dT)";
+        value           uniform 300;
+    }
+
+    outlet_rack_right
+    {
+        type            zeroGradient;
+    }
+
+    defaultFaces
+    {
+        type            zeroGradient;
+        value           uniform 300;
+    }
+}
+
+
+// ************************************************************************* //

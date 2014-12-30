@@ -1,0 +1,91 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      alphat;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -1 0 0 0 0];
+
+internalField   uniform 1.9e-5;
+
+boundaryField
+{
+
+    inlet_crack1
+    {
+        type            alphatJayatillekeWallFunction;
+        Prt             0.85;
+        value           $internalField;
+    }
+
+    outlet_crack1
+    {
+        type            alphatJayatillekeWallFunction;
+        Prt             0.85;
+        value           $internalField;
+    }
+
+    inlet_crack2
+    {
+        type            alphatJayatillekeWallFunction;
+        Prt             0.85;
+        value           $internalField;
+    }
+
+    outlet_crack2
+    {
+        type            alphatJayatillekeWallFunction;
+        Prt             0.85;
+        value           $internalField;
+    }
+
+    outlet_rack_left
+    {
+        type            alphatJayatillekeWallFunction;
+        Prt             0.85;
+        value           $internalField;
+    }
+
+    inlet_rack_left
+    {
+        type            alphatJayatillekeWallFunction;
+        Prt             0.85;
+        value           $internalField;
+    }
+
+    outlet_rack_right
+    {
+        type            alphatJayatillekeWallFunction;
+        Prt             0.85;
+        value           $internalField;
+    }
+
+    inlet_rack_right
+    {
+        type            alphatJayatillekeWallFunction;
+        Prt             0.85;
+        value           $internalField;
+    }
+
+    defaultFaces
+    {
+         type            alphatJayatillekeWallFunction;
+         Prt             0.85;
+         value           $internalField;
+    }
+
+}
+
+
+// ************************************************************************* //

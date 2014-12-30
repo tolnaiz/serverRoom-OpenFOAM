@@ -1,0 +1,167 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    outlet_rack_left
+    {
+        type            groovyBC;
+        variables (
+            "minX=min(pts().x);"
+            "maxX=max(pts().x);"
+            "minZ=min(pts().z);"
+            "maxZ=max(pts().z);"
+            "mx=mag((maxX-minX)/2.0);"
+            "mz=mag((maxZ-minZ)/2.0);"
+            "xOffset=minX+mx;"
+            "zOffset=minZ+mz;"
+            "xp=pos().x-xOffset;"
+            "zp=pos().z-zOffset;"
+            "val=1-(mag(xp)/mx * mag(zp)/mz);"
+            "normalizedFlux=sum(val*area());"
+            "ratio=5*0.666/normalizedFlux;"
+        );
+        valueExpression "vector(0,-1*ratio*val,0)";
+        value           uniform (0 -0.5 0);
+    }
+    inlet_rack_left
+    {
+        type            groovyBC;
+        variables (
+            "minX=min(pts().x);"
+            "maxX=max(pts().x);"
+            "minZ=min(pts().z);"
+            "maxZ=max(pts().z);"
+            "mx=mag((maxX-minX)/2.0);"
+            "mz=mag((maxZ-minZ)/2.0);"
+            "xOffset=minX+mx;"
+            "zOffset=minZ+mz;"
+            "xp=pos().x-xOffset;"
+            "zp=pos().z-zOffset;"
+            "val=1-(mag(xp)/mx * mag(zp)/mz);"
+            "normalizedFlux=sum(val*area());"
+            "ratio=5*0.666/normalizedFlux;"
+        );
+        valueExpression "vector(0,-1*ratio*val,0)";
+        value           uniform (0 -0.5 0);
+    }
+    outlet_rack_right
+    {
+        type            groovyBC;
+        variables (
+            "minX=min(pts().x);"
+            "maxX=max(pts().x);"
+            "minZ=min(pts().z);"
+            "maxZ=max(pts().z);"
+            "mx=mag((maxX-minX)/2.0);"
+            "mz=mag((maxZ-minZ)/2.0);"
+            "xOffset=minX+mx;"
+            "zOffset=minZ+mz;"
+            "xp=pos().x-xOffset;"
+            "zp=pos().z-zOffset;"
+            "val=1-(mag(xp)/mx * mag(zp)/mz);"
+            "normalizedFlux=sum(val*area());"
+            "ratio=5*0.666/normalizedFlux;"
+        );
+        valueExpression "vector(0,ratio*val,0)";
+        value           uniform (0 0.5 0);
+    }
+    inlet_rack_right
+    {
+        type            groovyBC;
+        variables (
+            "minX=min(pts().x);"
+            "maxX=max(pts().x);"
+            "minZ=min(pts().z);"
+            "maxZ=max(pts().z);"
+            "mx=mag((maxX-minX)/2.0);"
+            "mz=mag((maxZ-minZ)/2.0);"
+            "xOffset=minX+mx;"
+            "zOffset=minZ+mz;"
+            "xp=pos().x-xOffset;"
+            "zp=pos().z-zOffset;"
+            "val=1-(mag(xp)/mx * mag(zp)/mz);"
+            "normalizedFlux=sum(val*area());"
+            "ratio=5*0.666/normalizedFlux;"
+        );
+        valueExpression "vector(0,ratio*val,0)";
+        value           uniform (0 0.5 0);
+    }
+    inlet_crack1
+    {
+        type            groovyBC;
+        variables (
+            "minX=min(pts().x);"
+            "maxX=max(pts().x);"
+            "minY=min(pts().y);"
+            "maxY=max(pts().y);"
+            "mx=mag((maxX-minX)/2.0);"
+            "my=mag((maxY-minY)/2.0);"
+            "xOffset=minX+mx;"
+            "yOffset=minY+my;"
+            "xp=pos().x-xOffset;"
+            "yp=pos().y-yOffset;"
+            "val=1-(mag(xp)/mx * mag(yp)/my);"
+            "normalizedFlux=sum(val*area());"
+            "ratio=3/normalizedFlux;"
+        );
+        valueExpression "vector(0,0,-1*ratio*val)";
+        value           uniform (0 0 -1);
+    }
+    outlet_crack1
+    {
+        type            zeroGradient;
+    }
+
+    inlet_crack2
+    {
+        type            groovyBC;
+        variables (
+            "minX=min(pts().x);"
+            "maxX=max(pts().x);"
+            "minY=min(pts().y);"
+            "maxY=max(pts().y);"
+            "mx=mag((maxX-minX)/2.0);"
+            "my=mag((maxY-minY)/2.0);"
+            "xOffset=minX+mx;"
+            "yOffset=minY+my;"
+            "xp=pos().x-xOffset;"
+            "yp=pos().y-yOffset;"
+            "val=1-(mag(xp)/mx * mag(yp)/my);"
+            "normalizedFlux=sum(val*area());"
+            "ratio=3/normalizedFlux;"
+        );
+        valueExpression "vector(0,0,-1*ratio*val)";
+        value           uniform (0 0 -1);
+    }
+    outlet_crack2
+    {
+        type            zeroGradient;
+    }
+    defaultFaces
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+}
+
+
+// ************************************************************************* //

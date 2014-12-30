@@ -1,0 +1,67 @@
+
+FoamFile
+{
+ class dictionary;
+ format ascii;
+ object changeDictionaryDict;
+ version 2.0;
+}
+
+dictionaryReplacement
+{
+  boundary
+  {
+    inlet_crack1
+    {
+        type            wall;
+        physicalType    wall;
+    }
+
+    outlet_crack1
+    {
+        type            wall;
+        physicalType    wall;
+    }
+
+    inlet_crack2
+    {
+        type            wall;
+        physicalType    wall;
+    }
+
+    outlet_crack2
+    {
+        type            wall;
+        physicalType    wall;
+    }
+
+    outlet_rack_left
+    {
+        type            wall;
+        physicalType    wall;
+    }
+
+    inlet_rack_left
+    {
+        type            wall;
+        physicalType    wall;
+    }
+
+    outlet_rack_right
+    {
+        type            wall;
+        physicalType    wall;
+    }
+
+    inlet_rack_right
+    {
+        type            wall;
+        physicalType    wall;
+    }
+    defaultFaces
+    {
+        type            wall;
+    }
+  }
+}
+
